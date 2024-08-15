@@ -2,11 +2,9 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -22,10 +20,15 @@ a:hover {
   color: #535bf2;
 }
 
+input{
+  color: black;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #f1ebeb !important;
 }
 
 h1 {
@@ -65,7 +68,54 @@ button:focus-visible {
   }
 }
 
+.cp{
+  cursor: pointer;
+}
+
 .apexcharts-canvas .apexchartsn29esaj7i .apexcharts-theme-{
   width: 200px !important;
   margin: auto !important;
+}
+
+.nav-fill .nav-item .nav-link, .nav-justified .nav-item .nav-link , .nav-link    .active{
+  border: none !important;
+}
+
+.nav-item button{
+  border: none !important;
+  
+}
+.nav-item {
+  margin-right: 10px ;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+  border-bottom: 2px solid #00008B !important;
+}
+
+.BarChart_Add{
+  height: 400px;
+  max-width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.apexcharts-menu-icon{
+  display: none !important;
+}
+
+label{
+  font-size: 14px;
+}
+
+.form_inputs{
+  background-color: transparent !important;
+  outline: none !important;
+  border: 1px solid #d3d3d3;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
