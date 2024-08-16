@@ -9,7 +9,7 @@ const Navbar = () => {
     const handleShow = () => setShow(true);
 
     return (
-        <div>
+        <div className='position-fixed top-0 w-100' style={{zIndex:"1000"}}>
             <AddWidget show={show} handleClose={handleClose} />
             <nav className="navbar navbar-light bg-light">
                 <div className="container-fluid">

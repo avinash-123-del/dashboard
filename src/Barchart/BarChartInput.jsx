@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
-import { Modal } from 'react-bootstrap'
+import React, { useContext } from 'react';
+import { Modal } from 'react-bootstrap';
 import { ReactProvider } from '../Context/ReactContext';
 
 const BarChartInput = ({ open, close }) => {
-
-    const { charts, setCharts, yValues, setYValues, xValues, setXValues, title, setTitle } = useContext(ReactProvider)
+    const { charts, setCharts, yValues, setYValues, xValues, setXValues, title, setTitle,setSelectedCharts } = useContext(ReactProvider);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,18 +15,25 @@ const BarChartInput = ({ open, close }) => {
             alert("X and Y values must have the same length.");
             return;
         }
+
         const newChart = {
             title,
             data: xArray.map((x, index) => ({ x, y: yArray[index] }))
         };
 
         setCharts([...charts, newChart]);
+
+        setSelectedCharts(prevSelected => ({
+            ...prevSelected,
+            [newChart.title]: true, 
+        }));
+
+        // Clear the form
         setTitle('');
         setXValues('');
         setYValues('');
         close();
     };
-
 
     return (
         <Modal show={open} onHide={close}>
@@ -68,12 +74,12 @@ const BarChartInput = ({ open, close }) => {
                         />
                     </div>
                     <div className='text-center'>
-                    <button type="submit" className='text-center py-1 px-2 rounded'>Add Chart</button>
+                        <button type="submit" className='text-center py-1 px-2 rounded'>Add Chart</button>
                     </div>
                 </form>
             </Modal.Body>
         </Modal>
-    )
+    );
 }
 
-export default BarChartInput
+export default BarChartInput;

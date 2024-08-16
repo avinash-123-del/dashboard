@@ -9,6 +9,15 @@ const Context = ({ children }) => {
     const [title, setTitle] = useState('');
     const [xValues, setXValues] = useState('');
     const [yValues, setYValues] = useState('');
+    const [selectedCharts, setSelectedCharts] = useState({});
+
+
+    //--------------- Pie Chat-----------------
+    const [pieCharts, setPieCharts] = useState([]);
+    const [pieTitle, setPieTitle] = useState('');
+    const [pieValues, setPieValues] = useState('');
+    const [pieLabels, setPieLabels] = useState('');
+    const [selectedPieCharts, setSelectedPieCharts] = useState({});
 
     const value = {
 
@@ -16,7 +25,14 @@ const Context = ({ children }) => {
         charts, setCharts,
         yValues, setYValues,
         xValues, setXValues,
-        title, setTitle
+        title, setTitle,
+        selectedCharts, setSelectedCharts
+
+        //------------ Pie Charts ---------------
+        , pieCharts, setPieCharts,
+        pieValues, setPieValues,
+        pieTitle, setPieTitle,
+        selectedPieCharts, setSelectedPieCharts
 
     }
 

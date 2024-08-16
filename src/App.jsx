@@ -5,8 +5,8 @@ import Context from './Context/ReactContext'
 const App = () => {
   return (
     <Context>
-      <Navbar/>
-      <HomePage/>
+      <Navbar />
+      <HomePage />
     </Context>
   )
 }
