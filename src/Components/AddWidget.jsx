@@ -6,21 +6,24 @@ import { IoIosAdd, IoMdClose } from "react-icons/io";
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { ReactProvider } from '../Context/ReactContext';
 import BarChartInput from '../Barchart/BarChartInput';
-import PieChartInputs from '../PieChart/PieChartInputs'; // Import the PieChartInput component
+import RadarChartInput from '../RadarChart/RadarChartInput';
+import PieChartInputs from '../PieChart/PieChartinputs';
 
 const AddWidget = ({ show, handleClose }) => {
     const [openBar, setOpenBar] = useState(false);
     const [openPie, setOpenPie] = useState(false);
-    const { charts, pieCharts, setSelectedCharts } = useContext(ReactProvider);
-
+    const [openRadar, setOpenRadar] = useState(false);
+    const { charts, pieCharts, radarCharts, setSelectedCharts, setSelectedPieCharts, setSelectedRadarCharts } = useContext(ReactProvider);
+    
     const [tempCharts, setTempCharts] = useState({});
+    const [tempPieCharts, setTempPieCharts] = useState({});
+    const [tempRadarCharts, setTempRadarCharts] = useState({});
 
     useEffect(() => {
-        const allCharts = [...charts, ...pieCharts];
-        if (allCharts.length > 0) {
+        if (charts.length > 0) {
             setTempCharts(prevSelected => {
                 const initialState = { ...prevSelected };
-                allCharts.forEach(chart => {
+                charts.forEach(chart => {
                     if (initialState[chart.title] === undefined) {
                         initialState[chart.title] = true; 
                     }
@@ -28,17 +31,61 @@ const AddWidget = ({ show, handleClose }) => {
                 return initialState;
             });
         }
-    }, [charts, pieCharts]);
 
-    const handleCheckboxChange = (title) => {
-        setTempCharts(prevState => ({
-            ...prevState,
-            [title]: !prevState[title]
-        }));
+        if (pieCharts.length > 0) {
+            setTempPieCharts(prevSelected => {
+                const initialState = { ...prevSelected };
+                pieCharts.forEach(chart => {
+                    if (initialState[chart.title] === undefined) {
+                        initialState[chart.title] = true; 
+                    }
+                });
+                return initialState;
+            });
+        }
+
+        if (radarCharts.length > 0) {
+            setTempRadarCharts(prevSelected => {
+                const initialState = { ...prevSelected };
+                radarCharts.forEach(chart => {
+                    if (initialState[chart.title] === undefined) {
+                        initialState[chart.title] = true; 
+                    }
+                });
+                return initialState;
+            });
+        }
+    }, [charts, pieCharts, radarCharts]);
+
+    const handleCheckboxChange = (title, chartType) => {
+        switch (chartType) {
+            case 'bar':
+                setTempCharts(prevState => ({
+                    ...prevState,
+                    [title]: !prevState[title]
+                }));
+                break;
+            case 'pie':
+                setTempPieCharts(prevState => ({
+                    ...prevState,
+                    [title]: !prevState[title]
+                }));
+                break;
+            case 'radar':
+                setTempRadarCharts(prevState => ({
+                    ...prevState,
+                    [title]: !prevState[title]
+                }));
+                break;
+            default:
+                break;
+        }
     };
 
     const handleConfirm = () => {
         setSelectedCharts(tempCharts);
+        setSelectedPieCharts(tempPieCharts);
+        setSelectedRadarCharts(tempRadarCharts);
         handleClose();
     };
 
@@ -46,6 +93,7 @@ const AddWidget = ({ show, handleClose }) => {
         <div>
             <BarChartInput open={openBar} close={() => setOpenBar(false)} />
             <PieChartInputs open={openPie} close={() => setOpenPie(false)} />
+            <RadarChartInput open={openRadar} close={() => setOpenRadar(false)} />
 
             <Offcanvas show={show} onHide={handleClose} placement='end'>
                 <Offcanvas.Header style={{ backgroundColor: "#00008B" }}>
@@ -61,17 +109,43 @@ const AddWidget = ({ show, handleClose }) => {
                 <Offcanvas.Body className='position-relative'>
                     <p>Personalize your dashboard by adding the following widgets</p>
                     <div>
-                        <Tabs defaultActiveKey="home" id="uncontrolled-tab-example" className="mb-3">
-                            <Tab eventKey="home" title="CSPM">
+                        <Tabs defaultActiveKey="bar" id="widget-tabs" className="mb-3">
+                           
+                            <Tab eventKey="pie" title="Tickets">
                                 <div>
-                                    {charts.length > 0 &&
+                                    {pieCharts.length > 0 && (
+                                        <div>
+                                            {pieCharts.map((e, i) => (
+                                                <InputGroup className="mb-3" key={i}>
+                                                    <InputGroup.Checkbox
+                                                        aria-label="Checkbox for following text input"
+                                                        checked={!!tempPieCharts[e.title]}
+                                                        onChange={() => handleCheckboxChange(e.title, 'pie')}
+                                                    />
+                                                    <Form.Control
+                                                        readOnly
+                                                        aria-label="Text input with checkbox"
+                                                        value={e.title}
+                                                    />
+                                                </InputGroup>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <Button onClick={() => { setOpenPie(true); handleClose(); }} variant="light" className='border pb-2'>
+                                        <IoIosAdd size={20} color='gray' /> Add CWPP
+                                    </Button>
+                                </div>
+                            </Tab>
+                            <Tab eventKey="bar" title="CWPP">
+                                <div>
+                                    {charts.length > 0 && (
                                         <div>
                                             {charts.map((e, i) => (
                                                 <InputGroup className="mb-3" key={i}>
                                                     <InputGroup.Checkbox
                                                         aria-label="Checkbox for following text input"
                                                         checked={!!tempCharts[e.title]}
-                                                        onChange={() => handleCheckboxChange(e.title)}
+                                                        onChange={() => handleCheckboxChange(e.title, 'bar')}
                                                     />
                                                     <Form.Control
                                                         readOnly
@@ -81,25 +155,22 @@ const AddWidget = ({ show, handleClose }) => {
                                                 </InputGroup>
                                             ))}
                                         </div>
-                                    }
-                                    <Button onClick={() => { setOpenBar(true); handleClose() }} variant="light" className='border pb-2'>
-                                        <IoIosAdd size={20} color='gray' /> Add CSPM
+                                    )}
+                                    <Button onClick={() => { setOpenBar(true); handleClose(); }} variant="light" className='border pb-2'>
+                                        <IoIosAdd size={20} color='gray' /> Add Tickets
                                     </Button>
                                 </div>
                             </Tab>
-                            <Tab eventKey="profile" title="CWPP">
-                                CWPP
-                            </Tab>
-                            <Tab eventKey="pie" title="Pie Charts">
+                            <Tab eventKey="radar" title="Bookings">
                                 <div>
-                                    {pieCharts.length > 0 &&
+                                    {radarCharts.length > 0 && (
                                         <div>
-                                            {pieCharts.map((e, i) => (
+                                            {radarCharts.map((e, i) => (
                                                 <InputGroup className="mb-3" key={i}>
                                                     <InputGroup.Checkbox
                                                         aria-label="Checkbox for following text input"
-                                                        checked={!!tempCharts[e.title]}
-                                                        onChange={() => handleCheckboxChange(e.title)}
+                                                        checked={!!tempRadarCharts[e.title]}
+                                                        onChange={() => handleCheckboxChange(e.title, 'radar')}
                                                     />
                                                     <Form.Control
                                                         readOnly
@@ -109,24 +180,21 @@ const AddWidget = ({ show, handleClose }) => {
                                                 </InputGroup>
                                             ))}
                                         </div>
-                                    }
-                                    <Button onClick={() => { setOpenPie(true); handleClose() }} variant="light" className='border pb-2'>
-                                        <IoIosAdd size={20} color='gray' /> Add Pie Chart
+                                    )}
+                                    <Button onClick={() => { setOpenRadar(true); handleClose(); }} variant="light" className='border pb-2'>
+                                        <IoIosAdd size={20} color='gray' /> Add Bookings
                                     </Button>
                                 </div>
                             </Tab>
-                            <Tab eventKey="contact" title="Image">
-                                Image
-                            </Tab>
                         </Tabs>
-                    </div>
-                    <div className='d-flex gap-2 position-absolute' style={{ right: "20px", bottom: "20px" }}>
-                        <Button onClick={handleClose} variant="light" style={{ color: "#00008B", backgroundColor: "transparent", border: "1px solid #00008B" }} className='border pb-2'>
-                            Cancel
-                        </Button>
-                        <Button onClick={handleConfirm} className='border pb-2 text-white' style={{ backgroundColor: "#00008B" }}>
-                            Confirm
-                        </Button>
+                        <div className='d-flex gap-2 position-absolute' style={{ right: "20px", bottom: "20px" }}>
+                            <Button onClick={handleClose} variant="light" style={{ color: "#00008B", backgroundColor: "transparent", border: "1px solid #00008B" }} className='border pb-2'>
+                                Cancel
+                            </Button>
+                            <Button onClick={handleConfirm} className='border pb-2 text-white' style={{ backgroundColor: "#00008B" }}>
+                                Confirm
+                            </Button>
+                        </div>
                     </div>
                 </Offcanvas.Body>
             </Offcanvas>

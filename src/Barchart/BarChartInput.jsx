@@ -38,11 +38,11 @@ const BarChartInput = ({ open, close }) => {
     return (
         <Modal show={open} onHide={close}>
             <Modal.Header closeButton>
-                <Modal.Title>CSPM</Modal.Title>
+                <Modal.Title>Tickets</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form onSubmit={handleSubmit}>
-                    <h6 className='text-center'>Add New Bar Chart</h6>
+                    <h6 className='text-center'>Add New Ticket</h6>
                     <div>
                         <label>Title </label>
                         <br />

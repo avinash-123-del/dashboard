@@ -16,7 +16,7 @@ const PieChart = () => {
         <>
             <PieChartInputs open={openPie} close={() => setOpenPie(false)} />
 
-            <div className='row'>
+            <div className='row justify-content-center p-2 justify-content-lg-start'>
                 {filteredCharts.length > 0 && filteredCharts.map((chart, index) => {
                     const options = {
                         chart: {
@@ -55,7 +55,7 @@ const PieChart = () => {
                             breakpoint: 480,
                             options: {
                                 chart: {
-                                    width: 200,
+                                    width: 350,
                                 },
                                 legend: {
                                     position: 'bottom',
@@ -67,13 +67,13 @@ const PieChart = () => {
                     const series = chart.data.map(dataPoint => dataPoint.value);
 
                     return (
-                        <div className='col-3 border mx-2 shadow' key={index} style={{ marginBottom: '20px' }}>
+                        <div className='col-12 col-md-6 col-lg-3 border shadow set-position' key={index}>
                             <h4 className='text-center'>{chart.title || `Chart ${index + 1}`}</h4>
-                            <ReactApexChart options={options} series={series} type="donut" width={380} />
+                            <ReactApexChart options={options} series={series} type="donut" width={360} />
                         </div>
                     );
                 })}
-                <div className='PieChart_Add border shadow col-3'>
+                <div className='BarChart_Add border shadow col-12 col-md-6 col-lg-3'>
                     <Button onClick={() => setOpenPie(true)} variant="light" className='border pb-2'>
                         <IoIosAdd size={20} color='gray' /> Add widget
                     </Button>

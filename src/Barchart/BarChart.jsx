@@ -10,20 +10,18 @@ const BarChart = () => {
     const { charts, selectedCharts } = useContext(ReactProvider);
     const [openBar, setOpenbar] = useState(false)
 
-
-    // Filter charts to show only those selected
     const filteredCharts = charts.filter(chart => selectedCharts[chart.title]);
 
     return (
         <>
             <BarChartInput open={openBar} close={() => setOpenbar(false)} />
 
-            <div className='row' >
+            <div className='row justify-content-center p-2 justify-content-lg-start' >
                 {filteredCharts.length > 0 && filteredCharts.map((chart, index) => {
                     const options = {
                         chart: {
                             type: 'bar',
-                            height: 300
+                            height: 200
                         },
                         xaxis: {
                             type: 'category',
@@ -51,13 +49,13 @@ const BarChart = () => {
                     }];
 
                     return (
-                        <div className='col-3 border mx-2 shadow' key={index} style={{ marginBottom: '20px' }}>
+                        <div className='col-12 col-md-6 col-lg-3 border shadow set-position' key={index} style={{ marginBottom: '20px' }}>
                             <h4 className='text-center'>{chart.title || `Chart ${index + 1}`}</h4>
-                            <ReactApexChart options={options} series={series} type="bar" height={380} />
+                            <ReactApexChart options={options} series={series} type="bar" height={300} width={360} />
                         </div>
                     );
                 })}
-                <div className='BarChart_Add border shadow col-3'>
+                <div className='BarChart_Add border shadow col-12 col-md-6 col-lg-3'>
                     <Button onClick={() => setOpenbar(true)} variant="light" className='border pb-2'>
                         <IoIosAdd size={20} color='gray' />  Add widget
                     </Button>{' '}

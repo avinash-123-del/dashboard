@@ -7,9 +7,8 @@ const PieChartInputs = ({ open, close }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const labelsArray = pieLabels.split(',').map(label => label.trim());
-        const valuesArray = pieValues.split(',').map(value => parseFloat(value.trim()));
+        const labelsArray = pieLabels?.split(',').map(label => label.trim());
+        const valuesArray = pieValues?.split(',').map(value => parseFloat(value.trim()));
 
         if (labelsArray.length !== valuesArray.length) {
             alert("Labels and Values must have the same length.");
@@ -38,11 +37,11 @@ const PieChartInputs = ({ open, close }) => {
     return (
         <Modal show={open} onHide={close}>
             <Modal.Header closeButton>
-                <Modal.Title>Add Pie Chart</Modal.Title>
+                <Modal.Title>CWPP</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form onSubmit={handleSubmit}>
-                    <h6 className='text-center'>Add New Pie Chart</h6>
+                    <h6 className='text-center'>Add New CWPP</h6>
                     <div>
                         <label>Title </label>
                         <br />

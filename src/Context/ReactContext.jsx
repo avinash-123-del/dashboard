@@ -19,6 +19,14 @@ const Context = ({ children }) => {
     const [pieLabels, setPieLabels] = useState('');
     const [selectedPieCharts, setSelectedPieCharts] = useState({});
 
+
+    //--------------- RadarChart Chat-----------------
+    const [radarCharts, setRadarCharts] = useState([]);
+    const [radarTitle, setRadarTitle] = useState('');
+    const [radarValues, setRadarValues] = useState('');
+    const [selectedRadarCharts, setSelectedRadarCharts] = useState({});
+
+
     const value = {
 
         //----------- Bar Charts --------------
@@ -32,8 +40,14 @@ const Context = ({ children }) => {
         , pieCharts, setPieCharts,
         pieValues, setPieValues,
         pieTitle, setPieTitle,
-        selectedPieCharts, setSelectedPieCharts
-
+        pieLabels, setPieLabels,
+        selectedPieCharts, setSelectedPieCharts,
+        
+        //------------ Radar Charts ---------------
+        radarCharts, setRadarCharts,
+        radarTitle, setRadarTitle,
+        radarValues, setRadarValues,
+        selectedRadarCharts, setSelectedRadarCharts
     }
 
     return (

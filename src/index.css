@@ -94,12 +94,22 @@ button:focus-visible {
   border-bottom: 2px solid #00008B !important;
 }
 
-.BarChart_Add{
-  height: 400px;
-  max-width: 320px;
+.PieChart_Add{
+  height: 285px;
+  max-width: 365px !important;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 10px;
+}
+
+.BarChart_Add{
+  height: 353px;
+  max-width: 365px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
 }
 
 .apexcharts-menu-icon{
@@ -119,5 +129,32 @@ label{
   padding: 5px 10px;
   width: 100%;
   margin-bottom: 10px;
+}
+
+
+.set-position{
+  margin-right:0px !important;
+}
+
+.set-position>div>div{
+  position: relative;
+  right:13px !important;
+}
+
+.search_section{
+position: absolute;
+top: 40px;
+}
+
+.search_section .list-group{
+  background-color: #413e3e !important;
+width: 100%;
+}
+
+.flex{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+ list-style: none;
 }
 
