@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import { ReactProvider } from '../Context/ReactContext';
 
 const PieChartInputs = ({ open, close }) => {
-    const { pieCharts, setPieCharts, pieLabels, setPieLabels, pieValues, setPieValues, pieTitle, setPieTitle, setSelectedCharts } = useContext(ReactProvider);
+    const { pieCharts, setPieCharts, pieLabels, setPieLabels, pieValues, setPieValues, pieTitle, setPieTitle, setSelectedPieCharts } = useContext(ReactProvider);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +22,7 @@ const PieChartInputs = ({ open, close }) => {
 
         setPieCharts([...pieCharts, newPieChart]);
 
-        setSelectedCharts(prevSelected => ({
+        setSelectedPieCharts(prevSelected => ({
             ...prevSelected,
             [newPieChart.title]: true,
         }));

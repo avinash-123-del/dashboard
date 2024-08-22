@@ -6,11 +6,11 @@ import { IoIosAdd } from 'react-icons/io';
 import PieChartInputs from './PieChartinputs'; // Import the PieChartInput component
 
 const PieChart = () => {
-    const { pieCharts, selectedCharts } = useContext(ReactProvider);
+    const { pieCharts, selectedPieCharts } = useContext(ReactProvider);
     const [openPie, setOpenPie] = useState(false);
 
     // Filter charts to show only those selected
-    const filteredCharts = pieCharts.filter(chart => selectedCharts[chart.title]);
+    const filteredCharts = pieCharts.filter(chart => selectedPieCharts[chart.title]);
 
     return (
         <>
