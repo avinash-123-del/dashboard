@@ -31,7 +31,7 @@ const AddWidget = ({ show, handleClose }) => {
                 return initialState;
             });
         }
-
+        
         if (pieCharts.length > 0) {
             setTempPieCharts(prevSelected => {
                 const initialState = { ...prevSelected };
@@ -109,9 +109,9 @@ const AddWidget = ({ show, handleClose }) => {
                 <Offcanvas.Body className='position-relative'>
                     <p>Personalize your dashboard by adding the following widgets</p>
                     <div>
-                        <Tabs defaultActiveKey="bar" id="widget-tabs" className="mb-3">
+                        <Tabs defaultActiveKey="pie" id="widget-tabs" className="mb-3">
                            
-                            <Tab eventKey="pie" title="Tickets">
+                            <Tab eventKey="pie" title="CWPP">
                                 <div>
                                     {pieCharts.length > 0 && (
                                         <div>
@@ -136,7 +136,7 @@ const AddWidget = ({ show, handleClose }) => {
                                     </Button>
                                 </div>
                             </Tab>
-                            <Tab eventKey="bar" title="CWPP">
+                            <Tab eventKey="bar" title="Tickets">
                                 <div>
                                     {charts.length > 0 && (
                                         <div>
